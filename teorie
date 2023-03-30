@@ -1,0 +1,10 @@
+1. Jak přidáme hodnotu z jedné komponenty do druhé3
+props
+2. k čemu slouží re-evaluete a re--ender při změně React statu
+ jak vlastne unguje react na pozadi. Když spustime setter z hooks,
+  tak si vytvoří celý react dom a porovn jestli se htl struktura zmenila, tak se přepíše. Jinak ne
+  React potřebuje key atr k totmu aby si mohl překreslit jenom ten jednu componentu. Jinak by to přepisoval pravděpodobně cely.
+3.Popiště SPA
+
+Oproti klasické dynamické stránce. Stranka se vyrenderuje jednou
+V url se stránka nemění
