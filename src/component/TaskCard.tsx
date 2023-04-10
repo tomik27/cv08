@@ -2,7 +2,7 @@ import {Task} from "../data/init-data";
 
 interface Props{
     task: Task
-
+    //definuje typ funkce onTaskDone, která přijímá objekt typu Task jako argument a nevrací žádnou hodnotu
     onTaskDone: (task:Task)=> void
 }
 

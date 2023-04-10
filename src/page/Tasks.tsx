@@ -1,29 +1,39 @@
 import TaskCard from "../component/TaskCard";
 import {Task, tasks} from "../data/init-data";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import TasksList from "../component/TasksList";
 
-const Tasks=()=>{
+interface Props {
+}
 
-    const[taskList,setTaskList] = useState<Array<Task>>(tasks)
+const Tasks=({}:Props)=>{
 
-    const taskDoneHandle=(task:Task) =>{
-        //aktualizovat podle s novyma promenyma
-        //...taskList vezme vsechny prvky pole a dosadi je jako argumenty
-        setTaskList([...taskList]);
-        console.log("Changing state of reactive variable")
+    const[taskList,setTaskList]=useState<Array<Task>>([]);
+
+    const baseURL=import.meta.env.VITE_BACKEND_URL;
+
+    useEffect(()=>{
+        fetchData();
+    },[])
+
+    const fetchData = async () => {
+        const result = await (fetch(`${baseURL}/task/tasks`));
+
+        const data = await result.json() as Array<Task>;
+        console.log(data);
+
+       const transfered = data.map(t =>{
+           const {creationDate,updateDate,...rest}=t;
+
+            return{
+                creationDate:new Date(creationDate),
+               // updateDate:new Date(updateDate),
+                ...rest
+            } as Task;
+        });
+        setTaskList(transfered);
     }
-
-    return <div>
-        <h1>Aktualni tasky</h1>
-        {taskList.filter(t=> !t.done).map(t=>
-            <TaskCard key={t.id} task={t} onTaskDone={taskDoneHandle}/>
-        )}
-
-        <h1>Splněné tasky</h1>
-        {taskList.filter(t=> t.done).map(t=>
-            <TaskCard key={t.id} task={t} onTaskDone={taskDoneHandle}/>
-        )}
-    </div>
+        return <TasksList tasks={taskList} />
 };
 
 export default Tasks;

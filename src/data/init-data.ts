@@ -4,7 +4,7 @@ export interface Task{
     title: string,
     description: string,
     creationDate: Date,
-    updateDate?: Date //| undefined
+    updateDate: Date //| undefined
     done:boolean
 }
 export const tasks=
